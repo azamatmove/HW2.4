@@ -11,3 +11,4 @@ var terminalOptima = Terminal(fiveThousand: 1, twoThousand: 2, thousand: 3, five
 //print(terminalOptima.InsertNotes())
 
 print(terminalOptima.ReceiveNotes())
+//comment
