@@ -9,7 +9,6 @@ import Foundation
 class Terminal {
     private var notes : [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
     private var banknotes : [Int] = [5000, 2000, 1000, 500, 200, 100, 50, 20]
-    var clientNotes: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
     init(fiveThousand:Int, twoThousand:Int, thousand:Int, fiveHundred:Int, twoHundred:Int, hundred:Int, fifty: Int, twenty:Int) {
         self.notes[0] = fiveThousand
         self.notes[1] = twoThousand
@@ -23,6 +22,7 @@ class Terminal {
     func InsertNotes() -> [Int] {
         var amountOfMoney : Int = 0
         var notesToAdd: Int = 0
+        var clientInsertNotes: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
         print("Type the amount of money you would like to top up.")
         amountOfMoney = Int (readLine()!)!
         for n in 0...banknotes.count-1{
@@ -36,14 +36,16 @@ class Terminal {
                 notesToAdd = amountOfMoney / banknotes[n]
                 amountOfMoney -= banknotes[n] * notesToAdd
                 notes[n] += notesToAdd
-                clientNotes[n] += notesToAdd
+                clientInsertNotes[n] += notesToAdd
             }
         }
-        return clientNotes
+        return clientInsertNotes
     }
     func ReceiveNotes() -> [Int]? {
         var amountOfMoney : Int = 0
         var notesToDeduct: Int = 0
+        var clientReceiveNotes: [Int] = [0, 0, 0, 0, 0, 0, 0, 0]
+
         print("Type the amount of money you would like to receive.")
         amountOfMoney = Int (readLine()!)!
         if CountSum() > amountOfMoney {
@@ -51,22 +53,23 @@ class Terminal {
             if(banknotes[n] > amountOfMoney){
                 continue
             }
-            else if notes[n] <= 0 {
+            else if notes[n] == 0 {
                 continue
             }else {
                     notesToDeduct = amountOfMoney / banknotes[n]
                     if notes[n] < notesToDeduct{
                         amountOfMoney -= banknotes[n] * notes[n]
-                        clientNotes[n] += notes[n]
+                        clientReceiveNotes[n] += notes[n]
                         notes[n] = 0
                     }else{
                         amountOfMoney -= banknotes[n] * notesToDeduct
                         notes[n] -= notesToDeduct
-                        clientNotes[n] += notesToDeduct
+                        clientReceiveNotes[n] += notesToDeduct
                     }
             }
-            return clientNotes
+           
         }
+            return clientReceiveNotes
         } else {
             print("Not enough money")
         }
