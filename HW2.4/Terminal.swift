@@ -29,7 +29,7 @@ class Terminal {
             if(banknotes[n] > amountOfMoney){
                 continue
             }
-            else if notes[n] <= 0 {
+            else if notes[n] == 0 {
                 continue
             }
             else {
